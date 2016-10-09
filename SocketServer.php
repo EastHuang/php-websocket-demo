@@ -51,7 +51,6 @@ class SocketServer
 					}
 					else if(preg_match('/Sec-WebSocket-Key: (.*)\r\n/', $msg,$matches))						
 					{
-						echo $msg;
 						$upgrade = $this->createHandShake($matches[1]);
 						socket_write($socket,$upgrade,strlen($upgrade));
 					}
