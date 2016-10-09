@@ -1,0 +1,124 @@
+textarea,select,input,button{
+	-webkit-appearance: none;
+	 -moz-appearance: none; 
+	 -o-appearance: none; 
+	 appearance: none;
+	 font-family:'Lucida Grande','Trebuchet MS','Hiragino Sans GB','Segoe UI Light','Segoe UI','Microsoft Jhenghei','微软雅黑',sans-serif;
+}
+
+body{
+	background: #404449;
+	font-family:'Lucida Grande','Trebuchet MS','Hiragino Sans GB','Segoe UI Light','Segoe UI','Microsoft Jhenghei','微软雅黑',sans-serif;
+}
+
+#head{
+	background: -webkit-linear-gradient(top,#697782,#56626E);
+	background: -moz-linear-gradient(top,#697782,#56626E);
+	height: 60px;
+	border-top-left-radius: 10px;
+	border-top-right-radius:10px;
+}
+
+#main{
+	height: 460px;
+}
+
+#msg_box{
+	height: 80px;
+	border-top: 1px solid #ccc;
+	padding: 20px 0px 0px 40px;
+}
+
+#msg{
+	display: inline-block;
+	padding:3px;
+	border:1px solid #ccc;
+	border-radius: 4px;
+	width:600px;
+	height: 35px;
+	font-size:14px;
+	outline: none;
+}
+
+#send{
+	display: inline-block;
+	height: 40px;
+	width:70px;
+	text-align: center;
+	color:#FFF;
+	border:1px solid transparent;
+	border-color: #4cae4c;
+	border-radius: 4px;
+	background: #2DAB2D;
+	margin-left:20px;
+}
+
+.show_box{
+	width:100%;
+	min-height: 60px;
+	padding: 6px;
+}
+
+.user{
+	width: 48px;
+	height: 48px;
+	overflow: hidden;
+	border-radius: 50%;
+}
+
+.user img{
+	width: 48px;
+}
+
+.info{
+	position: relative;
+	max-width: 360px;
+	min-width: 48px;
+	min-height: 48px;
+	border-radius: 6px;
+	font-weight: 600;
+	line-height: 48px;
+	text-align: center;
+}
+
+.info_other{
+	background: #FFF;
+}
+
+.info_self{
+	background: #A5E85A;
+}
+
+.box-left{
+	float:left;
+	margin-left:15px;
+	margin-right: 5px;
+}
+
+.box-right{
+	float:right;
+	margin-right: 15px;
+	margin-left: 5px;
+}
+
+.angle-left{
+	position: absolute;
+	width: 0px;
+	height: 0px;
+	top:15px;
+	left:-10px;
+	border-top: 10px solid #EBEBEB;
+	border-bottom: 10px solid #EBEBEB;
+	border-right:10px solid #FFF; 
+}
+
+.angle-right{
+	position: absolute;
+	width: 0px;
+	height: 0px;
+	top:15px;
+	right:-10px;
+	border-top: 10px solid #EBEBEB;
+	border-bottom: 10px solid #EBEBEB;
+	border-left:10px solid #A5E85A; 
+}

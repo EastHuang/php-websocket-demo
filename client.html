@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<meta http-equiv="Content-type" content="text/html;charset=utf-8">
+<head>
+	<title>客户端</title>
+	<link rel="stylesheet" type="text/css" href="public/css/style.css">
+	<script src="public/js/jquery-2.2.1.min.js"></script>
+	<script src="public/js/client.js"></script>
+	<script>
+		var ws = new WebSocket('ws://127.0.0.1:8080/'); 
+		ws.onopen = function(){
+			console.log("握手成功，打开socket连接了。。。");
+	    };
+	    ws.onmessage = function(e){
+	    	var template = $("#other_template").html();
+	    	var temp = $(template);
+	    	temp.find(".info").children("span").text(e.data);
+	    	$("#main").append(temp);
+	    };
+	    ws.onclose = function(){
+	    	console.log("断开socket连接了。。。");
+	    };
+	    ws.onerror = function(e){
+	    	console.log("ERROR:" + e.data);
+   		};
+   		sendMessage = function(){
+   			//向服务端发送消息
+   			var data = $("#msg").val();
+   			ws.send(data);
+   			$("#msg").val("");
+   			//根据模板生成自己消息视图
+   			var template = $("#self_template").html();
+   			var temp =$(template);
+   			temp.find(".info").children("span").text(data);
+   			$("#main").append(temp); 
+   		}
+	</script>
+	<script id="other_template" type="text/template">
+		<div class="show_box">
+			<div class="user box-left">
+				<img src="public/image/huaji.jpg">
+			</div>
+			<div class="info info_other box-left">
+				<span></span>
+				<div class="angle-left info_other"></div>
+			</div>
+		</div>
+	</script>
+	<script id="self_template" type="text/template">
+		<div class="show_box">
+			<div class="user box-right">
+				<img src="public/image/huaji.jpg">
+			</div>
+			<div class="info info_self box-right">
+				<span></span>
+				<div class="angle-right info_self"></div>
+			</div>
+		</div>
+	</script>
+</head>
+<body>
+	<div id="client">
+		<div id="head"></div>
+		<div id="main"></div>
+		<div id="msg_box">
+			<input id="msg" type="text" placeholder="随便说两句吧...">
+			<button id="send">发送</button>
+		</div>
+	</div>
+	<script>
+		$("#client").ui_init();
+		$("#send").click(function(){
+			sendMessage();
+		});
+		$("#msg").on("keypress",function(e){
+			if(e.keyCode == 13){
+				sendMessage();
+			}
+		});
+	</script>
+</body>
+</html>
