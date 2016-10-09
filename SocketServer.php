@@ -4,7 +4,8 @@ class SocketServer
 	private $socket;
 	private $readGroup = array();									//保存读的套接字
 	private $writeGroup = array();									//保存写的套接字
-	private $mcrypt_key = '258EAFA5-E914-47DA-95CA-C5AB0DC85B11';	//tcp协议中用于加密的字符串
+	private $except = array();
+	private $mcrypt_key = '258EAFA5-E914-47DA-95CA-C5AB0DC85B11';	//websocket协议中用于加密的字符串
 	private $test = false;
 
 	/**
@@ -18,7 +19,7 @@ class SocketServer
 		$this->socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP) or die('socket创建失败');
 		socket_bind($this->socket,$host,$port);
 		socket_listen($this->socket,$backlog);
-		$this->readGroup[] = $this->socket; 		
+		$this->readGroup[] = $this->socket; 	//将所有套接字存于该数组	
 	}
 
 	public function start()
@@ -28,7 +29,7 @@ class SocketServer
 			//socket_select会移除了数组元素，所以必须用临时变量重置数组
 			$socketArr = $this->readGroup;  
 			//阻塞，直到捕获到变化
-			socket_select($socketArr, $this->writeGroup , $except = null , null);
+			socket_select($socketArr, $this->writeGroup , $this->except , 3600);
 			//遍历读的套接数组
 			foreach($socketArr as $socket)
 			{
@@ -50,6 +51,7 @@ class SocketServer
 					}
 					else if(preg_match('/Sec-WebSocket-Key: (.*)\r\n/', $msg,$matches))						
 					{
+						echo $msg;
 						$upgrade = $this->createHandShake($matches[1]);
 						socket_write($socket,$upgrade,strlen($upgrade));
 					}
